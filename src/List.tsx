@@ -4,9 +4,11 @@ import { Pokemon } from "./types";
 type ListProps = {
   pokemon: Pokemon[];
   handleNext: () => void;
+  isLoading: boolean;
+  error: Error | null;
 }
 
-const List = ({ pokemon, handleNext }: ListProps) => {
+const List = ({ pokemon, handleNext, isLoading, error }: ListProps) => {
   const loader = useRef(null);
 
   useEffect(() => {
@@ -38,7 +40,8 @@ const List = ({ pokemon, handleNext }: ListProps) => {
         ))}
       </ul>
       <div ref={loader}>
-        <h2>Loading</h2>
+        {isLoading && <h2>Loading</h2>}
+        {error && <h2>{error.message}</h2>}
       </div>
     </div>
   );

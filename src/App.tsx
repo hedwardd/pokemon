@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className="container mx-auto">
-      <List pokemon={allPokemon} handleNext={handleNext} />
+      <List pokemon={allPokemon} handleNext={handleNext} isLoading={isListLoading} error={listError} />
     </div>
   );
 }

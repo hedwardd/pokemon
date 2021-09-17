@@ -6,8 +6,7 @@ const useFetchList = () => {
   const [allPokemon, setAllPokemon] = useState<Pokemon[]>([]);
   const [fetchURL, setFetchURL] = useState("https://pokeapi.co/api/v2/pokemon/");
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [count, setCount] = useState(0)
+  const [error, setError] = useState<Error | null>(null);
   const [toFetch, setToFetch] = useState(false)
 
   useEffect(() => {
@@ -19,16 +18,20 @@ const useFetchList = () => {
         const pokemonList: Pokemon[] = data.results;
         for (let i = 0; i < pokemonList.length; i++) {
           pokemonList[i].name = pokemonList[i].name.substring(0, 1).toUpperCase() + pokemonList[i].name.substring(1);
-          pokemonList[i].number = count + i + 1;
+          pokemonList[i].number = allPokemon.length + i + 1;
         }
         setAllPokemon([...allPokemon, ...pokemonList]);
-        setCount(count + pokemonList.length);
         setFetchURL(data.next);
         setLoading(false);
         setToFetch(false);
-      } catch (error) {
-        console.log(error);
-        setError("Error fetching list of pokemon.");
+      } catch (err) {
+        if (err instanceof TypeError) {
+          setError(err);
+        } else {
+          setError(new Error("Something went wrong"));
+        }
+        console.log(err);
+        // setError(err);
         setLoading(false);
         setToFetch(false);
       }
