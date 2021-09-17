@@ -1,11 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 import List from './List';
+import useFetchList from './hooks/useFetchList';
 
 function App() {
+
+  const { allPokemon, loading: isListLoading, error: listError, setToFetch } = useFetchList();
+
+  const handleNext = () => {
+    setToFetch(true);
+  }
+
   return (
-    <List />
+    <div className="container mx-auto">
+      <List pokemon={allPokemon} handleNext={handleNext} />
+    </div>
   );
 }
 
