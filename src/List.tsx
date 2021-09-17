@@ -10,7 +10,7 @@ const List = ({ pokemon, handleNext }: ListProps) => {
   const loader = useRef(null);
 
   useEffect(() => {
-    var options = {
+    const options = {
       root: null,
     };
     const observer = new IntersectionObserver(handleObserver, options);
@@ -22,7 +22,6 @@ const List = ({ pokemon, handleNext }: ListProps) => {
   const handleObserver: IntersectionObserverCallback = (entities) => {
     const target = entities[0];
     if (target.isIntersecting) {
-      console.log("Intersecting");
       handleNext();
     }
   }
