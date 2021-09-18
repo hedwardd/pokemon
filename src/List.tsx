@@ -6,14 +6,16 @@ type ListProps = {
   handleNext: () => void;
   isLoading: boolean;
   error: Error | null;
+  handleSelect: (id: number) => void;
 }
 
-const List = ({ pokemon, handleNext, isLoading, error }: ListProps) => {
+const List = ({ pokemon, handleNext, isLoading, error, handleSelect }: ListProps) => {
+  const listRef = useRef<HTMLUListElement>(null);
   const loader = useRef(null);
 
   useEffect(() => {
     const options = {
-      root: null,
+      root: listRef.current,
     };
     const observer = new IntersectionObserver(handleObserver, options);
     if (loader.current) {
@@ -29,13 +31,16 @@ const List = ({ pokemon, handleNext, isLoading, error }: ListProps) => {
   }
 
   return (
-    <div>
+    <div className="w-6/12 max-h-full">
       <h1>List</h1>
-      <ul>
+      <ul className="overflow-y-scroll h-3/6" ref={listRef}>
         {pokemon.map(pokemon => (
           <li
             key={pokemon.name}
             className="py-4"
+            onClick={() => {
+              handleSelect(pokemon.number);
+            }}
           >{pokemon.number}. {pokemon.name}</li>
         ))}
       </ul>
