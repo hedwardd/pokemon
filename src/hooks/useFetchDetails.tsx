@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from "react";
 
-import { Pokemon } from "../types";
+import { PokemonDisplayDetails, PokemonFetchResult } from "../types";
+import { getDisplayDetailsFromFetchResult } from "../util";
 
 const fetchURL = "https://pokeapi.co/api/v2/pokemon/";
 
 const useFetchDetails = () => {
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+  const [pokemon, setPokemon] = useState<PokemonDisplayDetails | null>(null);
   const [id, setId] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     async function fetchData(id: number) {
+      setError(null);
+      setLoading(true);
       try {
-        setLoading(true);
         const response = await fetch(`${fetchURL}${id}`);
-        const data = await response.json();
-        setPokemon(data);
+        const data: PokemonFetchResult = await response.json();
+        const displayDetails: PokemonDisplayDetails = getDisplayDetailsFromFetchResult(data);
+        setPokemon(displayDetails);
         setLoading(false);
       } catch (err) {
-        if (err instanceof TypeError) {
+        if (err instanceof Error) {
           setError(err);
         } else {
-          setError(new Error("Something went wrong"));
+          setError(new Error("Something went wrong."));
         }
         setLoading(false);
       }

@@ -20,9 +20,11 @@ function App() {
   }
 
   return (
-    <div className="container flex max-h-screen mx-auto">
-      <Viewer pokemon={pokemon} isLoading={isPokemonLoading} error={pokemonError} />
-      <List pokemon={allPokemon} handleNext={handleNext} isLoading={isListLoading} error={listError} handleSelect={handleSelect} />
+    <div className="container flex flex-col justify-center h-screen mx-auto md:max-w-screen-md">
+      <div className="flex h-1/2 bg-grid bg-40 bg-off-white">
+        <Viewer pokemon={pokemon} isLoading={isPokemonLoading} error={pokemonError} />
+        <List pokemon={allPokemon} handleNext={handleNext} isLoading={isListLoading} error={listError} handleSelect={handleSelect} />
+      </div>
     </div>
   );
 }

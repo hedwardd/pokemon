@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { Pokemon } from "./types";
+
+import { PokemonList } from "./types";
+
+const displayNumber = (num: number) => num.toString().padStart(3, "0");
 
 type ListProps = {
-  pokemon: Pokemon[];
+  pokemon: PokemonList;
   handleNext: () => void;
   isLoading: boolean;
   error: Error | null;
@@ -13,15 +16,18 @@ const List = ({ pokemon, handleNext, isLoading, error, handleSelect }: ListProps
   const listRef = useRef<HTMLUListElement>(null);
   const loader = useRef(null);
 
+  const [selected, setSelected] = React.useState<number | null>(null);
+
   useEffect(() => {
     const options = {
       root: listRef.current,
+      rootMargin: "10px",
     };
     const observer = new IntersectionObserver(handleObserver, options);
     if (loader.current) {
        observer.observe(loader.current)
     }
-}, []);
+}, [listRef, loader]);
 
   const handleObserver: IntersectionObserverCallback = (entities) => {
     const target = entities[0];
@@ -29,24 +35,25 @@ const List = ({ pokemon, handleNext, isLoading, error, handleSelect }: ListProps
       handleNext();
     }
   }
-
   return (
-    <div className="w-6/12 max-h-full">
-      <h1>List</h1>
-      <ul className="overflow-y-scroll h-3/6" ref={listRef}>
-        {pokemon.map(pokemon => (
-          <li
-            key={pokemon.name}
-            className="py-4"
-            onClick={() => {
-              handleSelect(pokemon.number);
+    <div className="flex flex-col w-1/2 h-full px-px py-2">
+      <div className="flex w-full h-full px-5 mx-1 bg-red-500 border-4 border-black rounded">
+        <ul className="flex flex-col w-full h-full overflow-y-scroll border-t-2 border-b-2 border-l-4 border-r-4 border-red-200 bg-off-white" ref={listRef}>
+          {pokemon.map(({ name, id }) => (
+            <li
+              key={name}
+              className={`px-3 py-3 text-lg ${selected === id ? 'border-red-500 border-2 rounded' : ''}`}
+              onClick={() => {
+                handleSelect(id);
+                setSelected(id);
             }}
-          >{pokemon.number}. {pokemon.name}</li>
-        ))}
-      </ul>
-      <div ref={loader}>
-        {isLoading && <h2>Loading</h2>}
-        {error && <h2>{error.message}</h2>}
+            >{displayNumber(id)} {name}</li>
+            ))}
+          <div ref={loader}>
+            {isLoading && <h2>Loading</h2>}
+            {error && <h2>{error.message}</h2>}
+          </div>
+        </ul>
       </div>
     </div>
   );

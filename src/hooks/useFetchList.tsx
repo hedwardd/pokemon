@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from "react";
 
-import { Pokemon } from "../types";
+import { PokemonResourceList, PokemonList } from "../types";
+import { getListFromResourceList } from "../util";
 
 const useFetchList = () => {
-  const [allPokemon, setAllPokemon] = useState<Pokemon[]>([]);
-  const [fetchURL, setFetchURL] = useState("https://pokeapi.co/api/v2/pokemon/");
+  const [allPokemon, setAllPokemon] = useState<PokemonList>([]);
+  const [fetchURL, setFetchURL] = useState<string | null>("https://pokeapi.co/api/v2/pokemon?limit=50");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
-  const [toFetch, setToFetch] = useState(false)
+  const [toFetch, setToFetch] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
+      setError(null);
+      setLoading(true);
       try {
-        setLoading(true);
-        const response = await fetch(fetchURL);
+        const response = await fetch(fetchURL!);
         const data = await response.json();
-        const pokemonList: Pokemon[] = data.results;
-        for (let i = 0; i < pokemonList.length; i++) {
-          pokemonList[i].name = pokemonList[i].name.substring(0, 1).toUpperCase() + pokemonList[i].name.substring(1);
-          pokemonList[i].number = allPokemon.length + i + 1;
-        }
-        setAllPokemon([...allPokemon, ...pokemonList]);
+        const pokemonResourceList: PokemonResourceList = data.results;
+        const pokemonListItems: PokemonList = getListFromResourceList(pokemonResourceList);
+        setAllPokemon([...allPokemon, ...pokemonListItems]);
         setFetchURL(data.next);
         setLoading(false);
         setToFetch(false);
@@ -36,7 +35,7 @@ const useFetchList = () => {
         setToFetch(false);
       }
     }
-    if (toFetch) {
+    if (toFetch && fetchURL) {
       fetchData();
     }
   }, [toFetch]);
