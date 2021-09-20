@@ -58,7 +58,7 @@ const DetailsDisplay = ({ pokemon }: PokemonDisplayProps) => (
 
 const Viewer = ({ pokemon, isLoading, error }: ListProps) => {
   return (
-    <div className="flex flex-col items-center justify-between w-1/2 py-2 pl-px">
+    <div className="flex flex-col items-center justify-between py-2 pl-px">
       {isLoading ? (
         <TextBox><p className="text-lg">Loading...</p></TextBox>
       ) : error ? (
