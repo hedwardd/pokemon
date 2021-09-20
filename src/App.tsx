@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="container flex items-center justify-center h-screen mx-auto md:max-w-screen-md">
-      <div className="flex flex-col md:flex-row h-1/2 bg-grid bg-40 bg-off-white">
+      <div className="flex flex-col w-full h-full md:flex-row md:h-1/2 bg-grid bg-40 bg-off-white md:w-8/12">
         <Viewer pokemon={pokemon} isLoading={isPokemonLoading} error={pokemonError} />
         <List pokemon={allPokemon} handleNext={handleNext} isLoading={isListLoading} error={listError} handleSelect={handleSelect} />
       </div>
