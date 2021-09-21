@@ -12,6 +12,9 @@ module.exports = {
       colors: {
         'off-white': '#F8F8F8',
       },
+      outline: {
+        'red': ['2px solid rgba(239, 68, 68, 1)', '-2px'],
+      },
     },
   },
   variants: {
