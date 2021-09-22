@@ -38,11 +38,11 @@ const List = ({ pokemon, handleNext, isLoading, error, handleSelect }: ListProps
   return (
     <div className="flex flex-col w-full px-px py-2 h-1/2 md:h-full md:w-1/2">
       <div className="flex w-full h-full px-5 mx-1 bg-red-500 border-4 border-black rounded">
-        <ul className="flex flex-col w-full h-full overflow-y-scroll border-t-2 border-b-2 border-l-4 border-r-4 border-red-200 bg-off-white" ref={listRef}>
+        <ul className="flex flex-col w-full h-full overflow-y-scroll border-t-2 border-b-2 border-l-4 border-r-4 border-red-200 bg-off-white scroll-snap-y" ref={listRef}>
           {pokemon.map(({ name, id }) => (
             <li
               key={name}
-              className={`px-3 py-3 text-lg ${selected === id ? 'outline-red rounded' : ''}`}
+              className={`px-3 py-3 text-lg scroll-snap-start ${selected === id ? 'outline-red rounded' : ''}`}
               onClick={() => {
                 handleSelect(id);
                 setSelected(id);
