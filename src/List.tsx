@@ -42,7 +42,7 @@ const List = ({ pokemon, handleNext, isLoading, error, handleSelect }: ListProps
           {pokemon.map(({ name, id }) => (
             <li
               key={name}
-              className={`px-3 py-3 text-lg scroll-snap-start ${selected === id ? 'outline-red rounded' : ''}`}
+              className={`px-3 py-3 text-lg scroll-snap-start font-pokefont ${selected === id ? 'outline-red rounded' : ''}`}
               onClick={() => {
                 handleSelect(id);
                 setSelected(id);
