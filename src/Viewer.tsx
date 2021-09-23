@@ -14,19 +14,6 @@ type ViewerProps = {
   error: Error | null;
 };
 
-// const DetailsDisplay = ({ pokemon }: PokemonDisplayProps) => (
-//   <>
-//     {pokemon ? (
-//       <>
-        
-//       </>
-//     ) : (
-//       <TextBox>Select a Pokemon!</TextBox>
-//     )}
-//   </>
-
-// );
-
 const Viewer = ({ pokemon, isLoading, error }: ViewerProps) => {
 
   const topText =
