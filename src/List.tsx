@@ -42,12 +42,18 @@ const List = ({ pokemon, handleNext, isLoading, error, handleSelect }: ListProps
           {pokemon.map(({ name, id }) => (
             <li
               key={name}
-              className={`px-3 py-3 text-lg scroll-snap-start font-pokefont ${selected === id ? 'outline-red rounded' : ''}`}
+              className={`px-3 py-3 scroll-snap-start font-pokefont cursor-pointer ${selected === id ? 'outline-red rounded' : ''}`}
               onClick={() => {
                 handleSelect(id);
                 setSelected(id);
             }}
-            >{displayNumber(id)} {name}</li>
+            >
+              <p
+                className={'overflow-hidden whitespace-nowrap overflow-ellipsis'}
+              >
+                {displayNumber(id)} <span className={`${id < 10000 ? 'text-sm' : 'text-xs'}`}>{name}</span>
+              </p>
+            </li>
             ))}
           <div ref={loader}>
             {isLoading && <h2>Loading</h2>}
