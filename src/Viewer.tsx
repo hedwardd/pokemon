@@ -44,7 +44,7 @@ const Viewer = ({ pokemon, isLoading, error }: ViewerProps) => {
     <div className="flex flex-col items-center justify-between w-full py-2 pl-px h-1/2 md:h-full md:w-1/2">
       <div className="flex w-full px-5 mx-1 bg-red-500 border-4 border-black rounded h-1/6">
           <div className="flex flex-col items-center justify-center w-full border-t-2 border-b-2 border-l-4 border-r-4 border-red-200 bg-off-white">
-            <h2 className="text-lg font-pokefont">{topText}</h2>
+            <h2 className="text-lg">{topText}</h2>
           </div>
         </div>
 
@@ -54,16 +54,16 @@ const Viewer = ({ pokemon, isLoading, error }: ViewerProps) => {
         <div className="flex w-full px-5 mx-1 bg-red-500 border-4 border-black rounded h-1/3">
           <div className="flex flex-col items-center justify-center w-full border-t-2 border-b-2 border-l-4 border-r-4 border-red-200 bg-off-white">
             <TextBoxRow>
-              <p className="font-pokefont">Type:</p>
-              <p className="font-pokefont">{typeText}</p>
+              <p>Type:</p>
+              <p>{typeText}</p>
             </TextBoxRow>
             <TextBoxRow>
-              <p className="font-pokefont">Weight:</p>
-              <p className="font-pokefont">{weightText}</p>
+              <p>Weight:</p>
+              <p>{weightText}</p>
             </TextBoxRow>
             <TextBoxRow>
-              <p className="font-pokefont">Height:</p>
-              <p className="font-pokefont">{heightText}</p>
+              <p>Height:</p>
+              <p>{heightText}</p>
             </TextBoxRow>
           </div>
         </div>
